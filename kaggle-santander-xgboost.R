@@ -3,7 +3,7 @@ rm(list=ls())
 library(xgboost)
 library(Matrix)
 library(caret)
-library(Ckmeans.1d.dp)
+library(Ckmeans.1d.dp) # only necessary for variable importance plot
 
 # 'Murica
 set.seed(1776)
@@ -86,5 +86,5 @@ xgb.plot.importance(importance_matrix[1:20,])
 test$TARGET = -1
 test = sparse.model.matrix(TARGET ~ ., data = test)
 preds = predict(clf, test)
-submission = data.frame(ID=test.id, TARGET=preds)
+submission = data.frame(ID = test.id, TARGET = preds)
 write.csv(submission, file.choose(), row.names = F)
