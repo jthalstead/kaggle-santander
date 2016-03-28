@@ -8,8 +8,8 @@ library(Ckmeans.1d.dp)
 # 'Murica
 set.seed(1776)
 
-train = read.csv("C:\\Users\\Varanus\\Documents\\MEGA\\Kaggle\\Santander\\train.csv")
-test = read.csv("C:\\Users\\Varanus\\Documents\\MEGA\\Kaggle\\Santander\\test.csv")
+train = read.csv(file.choose())
+test = read.csv(file.choose())
 
 ### Remove ID
 train$ID = NULL
@@ -62,7 +62,7 @@ train = sparse.model.matrix(TARGET ~ ., data = train)
 dtrain = xgb.DMatrix(data=train, label=train.y)
 watchlist = list(train=dtrain)
 
-param <- list(  objective           = "binary:logistic", 
+param = list(   objective           = "binary:logistic", 
                 booster             = "gbtree",
                 eval_metric         = "auc",
                 eta                 = 0.02,
@@ -71,7 +71,7 @@ param <- list(  objective           = "binary:logistic",
                 colsample_bytree    = 0.85
 )
 
-clf <- xgb.train(   params              = param, 
+clf = xgb.train(    params              = param, 
                     data                = dtrain, 
                     nrounds             = 500, 
                     verbose             = 1,
@@ -87,4 +87,4 @@ test$TARGET = -1
 test = sparse.model.matrix(TARGET ~ ., data = test)
 preds = predict(clf, test)
 submission = data.frame(ID=test.id, TARGET=preds)
-write.csv(submission, "C:\\Users\\Varanus\\Documents\\MEGA\\Kaggle\\Santander\\submission_v7.csv", row.names = F)
+write.csv(submission, file.choose(), row.names = F)
