@@ -57,9 +57,6 @@ test = test[, feature.names]
 
 train$TARGET = train.y
 
-### Ensemble ROS + RUS
-
-
 train = sparse.model.matrix(TARGET ~ ., data = train)
 
 dtrain = xgb.DMatrix(data=train, label=train.y)
